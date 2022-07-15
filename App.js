@@ -1,20 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import Navigator from "./components/Navigation/Navigator";
+import 'react-native-gesture-handler';
+import {StatusBar} from "react-native";
+import LoginScreen from "./components/Screens/LoginScreen";
+import WelcomeScreen from "./components/Screens/WelcomeScreen";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+
+
+    const [auth, setAuth] = useState(false)
+
+    if (auth) {
+        return (
+            <NavigationContainer>
+                <StatusBar barStyle="dark-content" hidden={false} backgroundColor="#fff"/>
+                <Navigator setAuth={setAuth}/>
+            </NavigationContainer>
+        );
+    } else {
+        return <WelcomeScreen setAuth={setAuth}/>
+    }
+
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
